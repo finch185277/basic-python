@@ -1,4 +1,5 @@
 import numpy as np
+import math  # for Q7
 
 orig_data1 = np.load('datalist1.npy')
 orig_data2 = np.load('datalist2.npy')
@@ -107,10 +108,54 @@ for num, fq in dictData2_.items():
 print("Q6:")
 
 print("Data1 max:", listData1_[-1], "min:", listData1_[0])
-print("D =", listData1_[-1] - listData1_[0])
+print("R(range) =", listData1_[-1] - listData1_[0])
 
 print("Data2 max:", listData2_[-1], "min:", listData2_[0])
-print("D =", listData2_[-1] - listData2_[0])
+print("R(range) =", listData2_[-1] - listData2_[0])
 
 # Q7
 print("Q7:")
+# ref : http://highscope.ch.ntu.edu.tw/wordpress/?p=65479
+
+sumData1 = 0
+fqSumData1 = 0
+amData1 = 0   # Arithmetic mean
+varData1 = 0  # Variance
+sdData1 = 0   # Standard Deviation，SD
+
+for num, fq in dictData1_.items():
+    sumData1 += int(num) * fq
+    fqSumData1 += fq
+# print(sumData1, fqSumData1)
+amData1 = sumData1 / fqSumData1
+# print(amData1)
+for num, fq in dictData1_.items():
+    varData1 += pow((int(num) - amData1), 2) * fq
+varData1 /= fqSumData1
+# print(varData1)
+sdData1 = math.sqrt(varData1)
+# print(sdData1)
+
+sumData2 = 0
+fqSumData2 = 0
+amData2 = 0   # Arithmetic mean
+varData2 = 0  # Variance
+sdData2 = 0   # Standard Deviation，SD
+
+for num, fq in dictData2_.items():
+    sumData2 += int(num) * fq
+    fqSumData2 += fq
+# print(sumData2, fqSumData2)
+amData2 = sumData2 / fqSumData2
+# print(amData2)
+for num, fq in dictData2_.items():
+    varData2 += pow((int(num) - amData2), 2) * fq
+varData2 /= fqSumData2
+# print(varData2)
+sdData2 = math.sqrt(varData2)
+# print(sdData2)
+
+if(sdData1 > sdData2):
+    print("Dispersion of data: data1 > data2")
+else:
+    print("Dispersion of data: data2 > data1")
